@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://btr1nj3yhi4ix"]
+
+[ext_resource type="PackedScene" uid="uid://cyyjtrvrn1ynd" path="res://assets/meshes/procedural_sword_test_15.glb" id="1_8iro1"]
+
+[node name="Sketchfab_Scene" instance=ExtResource("1_8iro1")]
+
+[node name="sheath_low" parent="Sketchfab_model/Collada visual scene group" index="2"]
+visible = false

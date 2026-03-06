@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="GameConfig" load_steps=9 format=3 uid="uid://b5vvdg0thl7bo"]
+
+[ext_resource type="Script" uid="uid://bcxlrsp2ykcib" path="res://scripts/GameConfig.cs" id="1_gc"]
+[ext_resource type="AudioStream" uid="uid://d1n2jlfpm4ikn" path="res://assets/sounds/main_theme.mp3" id="1_hruu6"]
+[ext_resource type="Texture2D" uid="uid://br8goh88uxyhs" path="res://assets/textures/cube_face_2.jpg" id="2_qi3qn"]
+[ext_resource type="AudioStream" uid="uid://b55jfuu8w2pjv" path="res://assets/sounds/victory.mp3" id="2_w8frl"]
+[ext_resource type="AudioStream" uid="uid://batuji8abcgm8" path="res://assets/sounds/shield_cling.mp3" id="3_guim5"]
+[ext_resource type="AudioStream" uid="uid://duigegnhwrxng" path="res://assets/sounds/sword_cling.mp3" id="4_qi3qn"]
+[ext_resource type="PackedScene" uid="uid://cg720h6i0bu75" path="res://scenes/CrossedSwords.tscn" id="5_swords"]
+[ext_resource type="PackedScene" uid="uid://cdh8vkwl8rqyp" path="res://scenes/Shield.tscn" id="6_shield"]
+
+[resource]
+script = ExtResource("1_gc")
+FaceTexture = ExtResource("2_qi3qn")
+CrossedSwordsScene = ExtResource("5_swords")
+ShieldScene = ExtResource("6_shield")
+MusicMenu = ExtResource("1_hruu6")
+MusicBattle = ExtResource("1_hruu6")
+MusicVictory = ExtResource("2_w8frl")
+SfxPlaceSword = ExtResource("4_qi3qn")
+SfxPlaceShield = ExtResource("3_guim5")
+SfxWin = ExtResource("2_w8frl")

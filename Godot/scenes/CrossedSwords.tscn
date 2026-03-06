@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg720h6i0bu75"]
+
+[ext_resource type="PackedScene" uid="uid://btr1nj3yhi4ix" path="res://scenes/SwordSingle.tscn" id="1_1cs0b"]
+
+[node name="CrossedSwords" type="Node3D"]
+transform = Transform3D(0.92775804, 0, 0.37318206, 0, 1, 0, -0.37318206, 0, 0.92775804, 0, 0, 0)
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("1_1cs0b")]
+transform = Transform3D(0.21749932, 0, 0.074793376, 0, 0.23, 0, -0.074793376, 0, 0.21749932, -0.042302847, 0, -0.10386346)
+
+[node name="Sketchfab_Scene2" parent="." instance=ExtResource("1_1cs0b")]
+transform = Transform3D(0.10443932, 0, -0.20492055, 0, 0.23, 0, 0.20492055, 0, 0.10443932, 0.0937065, 0, -0.050693624)

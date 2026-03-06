@@ -1,0 +1,348 @@
+[gd_scene load_steps=13 format=3 uid="uid://uih1cusatg5y"]
+
+[ext_resource type="Script" uid="uid://c0pnf6sw4xlh5" path="res://scripts/GameManager.cs" id="1_gm"]
+[ext_resource type="Script" uid="uid://c7eapdfeoevv6" path="res://scripts/game/CubeController.cs" id="2_cc"]
+[ext_resource type="PackedScene" path="res://scenes/ui/OptionsMenu.tscn" id="4_optmenu"]
+[ext_resource type="Resource" uid="uid://b5vvdg0thl7bo" path="res://game_config.tres" id="5_cfg"]
+[ext_resource type="PackedScene" uid="uid://yewooo1eaxb7" path="res://scenes/Tavern.tscn" id="5_s0nni"]
+[ext_resource type="PackedScene" uid="uid://b8sdgaxqfire" path="res://scenes/game/Fire.tscn" id="6_aug50"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat_1"]
+sky_top_color = Color(0.08, 0.04, 0.18, 1)
+sky_horizon_color = Color(0.55, 0.25, 0.08, 1)
+ground_bottom_color = Color(0.04, 0.02, 0.02, 1)
+ground_horizon_color = Color(0.4, 0.18, 0.06, 1)
+sun_angle_max = 20.0
+sun_curve = 0.08
+
+[sub_resource type="Sky" id="Sky_1"]
+sky_material = SubResource("SkyMat_1")
+
+[sub_resource type="Environment" id="Env_1"]
+background_mode = 2
+sky = SubResource("Sky_1")
+ambient_light_source = 2
+ambient_light_color = Color(0.9, 0.75, 0.55, 1)
+ambient_light_energy = 0.6
+tonemap_mode = 2
+tonemap_white = 6.0
+glow_enabled = true
+glow_intensity = 0.6
+glow_bloom = 0.05
+glow_blend_mode = 1
+fog_enabled = true
+fog_light_color = Color(0.35, 0.2, 0.1, 1)
+fog_light_energy = 0.5
+fog_density = 0.003
+fog_sky_affect = 0.3
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.012
+volumetric_fog_albedo = Color(0.25, 0.15, 0.08, 1)
+volumetric_fog_emission = Color(0.12, 0.06, 0.02, 1)
+volumetric_fog_emission_energy = 0.2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1panel"]
+content_margin_left = 14.0
+content_margin_top = 10.0
+content_margin_right = 14.0
+content_margin_bottom = 10.0
+bg_color = Color(0.1, 0.055, 0.02, 0.92)
+border_width_top = 2
+border_width_right = 3
+border_color = Color(0.784, 0.588, 0.047, 0.9)
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p2panel"]
+content_margin_left = 14.0
+content_margin_top = 10.0
+content_margin_right = 14.0
+content_margin_bottom = 10.0
+bg_color = Color(0.1, 0.055, 0.02, 0.92)
+border_width_left = 3
+border_width_top = 2
+border_color = Color(0.784, 0.588, 0.047, 0.9)
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_winpanel"]
+content_margin_left = 32.0
+content_margin_top = 32.0
+content_margin_right = 32.0
+content_margin_bottom = 32.0
+bg_color = Color(0.118, 0.071, 0.031, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.784, 0.588, 0.047, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="Game" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_1")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.86601907, -0.3535631, 0.3535593, 0, 0.70710295, 0.7071106, -0.500011, -0.61237127, 0.61236465, 2, 4, 2)
+light_color = Color(0.92471236, 0.8132553, 0.25766432, 1)
+light_energy = 2.5
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9984588, -0.055497717, 0, 0.055497713, 0.9984588, 0, 2.2, 9)
+
+[node name="CubeContainer" type="Node3D" parent="." node_paths=PackedStringArray("Camera")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 2.2, 0)
+script = ExtResource("2_cc")
+Camera = NodePath("../Camera3D")
+Config = ExtResource("5_cfg")
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("1_gm")
+Config = ExtResource("5_cfg")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Player1Panel" type="Panel" parent="HUD"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -90.0
+offset_right = 390.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_p1panel")
+
+[node name="ScoreLabel" type="Label" parent="HUD/Player1Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.36
+offset_left = 6.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.961, 0.871, 0.702, 1)
+theme_override_font_sizes/font_size = 26
+text = "Sides: 0"
+vertical_alignment = 1
+
+[node name="NameLabel" type="Label" parent="HUD/Player1Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.36
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Player 1"
+vertical_alignment = 1
+
+[node name="Player2Panel" type="Panel" parent="HUD"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -390.0
+offset_top = -90.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_p2panel")
+
+[node name="ScoreLabel" type="Label" parent="HUD/Player2Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.36
+offset_left = 6.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.961, 0.871, 0.702, 1)
+theme_override_font_sizes/font_size = 26
+text = "Sides: 0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="NameLabel" type="Label" parent="HUD/Player2Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.36
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_right = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "Player 2"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="TurnLabel" type="Label" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -240.0
+offset_top = 18.0
+offset_right = 240.0
+offset_bottom = 54.0
+theme_override_colors/font_color = Color(0.961, 0.871, 0.702, 1)
+theme_override_font_sizes/font_size = 20
+text = "Player 1 - 1 move left"
+horizontal_alignment = 1
+
+[node name="TimerBar" type="ProgressBar" parent="HUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = -48.0
+offset_right = 300.0
+offset_bottom = -20.0
+value = 100.0
+show_percentage = false
+
+[node name="WinScreen" type="Panel" parent="HUD"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -150.0
+offset_right = 200.0
+offset_bottom = 150.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_winpanel")
+
+[node name="WinVBox" type="VBoxContainer" parent="HUD/WinScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="WinLabel" type="Label" parent="HUD/WinScreen/WinVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.784, 0.588, 0.047, 1)
+theme_override_font_sizes/font_size = 28
+text = "PLAYER X
+VICTORIOUS!"
+horizontal_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="HUD/WinScreen/WinVBox"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="PauseMenu" type="Panel" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_winpanel")
+
+[node name="PauseVBox" type="VBoxContainer" parent="HUD/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.0
+offset_top = -107.5
+offset_right = 61.0
+offset_bottom = 107.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="PauseLabel" type="Label" parent="HUD/PauseMenu/PauseVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.784, 0.588, 0.047, 1)
+theme_override_font_sizes/font_size = 24
+text = "PAUSED"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="HUD/PauseMenu/PauseVBox"]
+layout_mode = 2
+text = "Resume"
+
+[node name="OptionsButton" type="Button" parent="HUD/PauseMenu/PauseVBox"]
+layout_mode = 2
+text = "Options"
+
+[node name="MainMenuButton" type="Button" parent="HUD/PauseMenu/PauseVBox"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="OptionsMenu" parent="HUD/PauseMenu" instance=ExtResource("4_optmenu")]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -2.0
+anchor_top = -2.0
+anchor_right = 3.0
+anchor_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DisconnectScreen" type="Panel" parent="HUD"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -120.0
+offset_right = 200.0
+offset_bottom = 120.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_winpanel")
+
+[node name="DisconnectVBox" type="VBoxContainer" parent="HUD/DisconnectScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+alignment = 1
+
+[node name="DisconnectLabel" type="Label" parent="HUD/DisconnectScreen/DisconnectVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.784, 0.588, 0.047, 1)
+theme_override_font_sizes/font_size = 28
+text = "Opponent disconnected."
+horizontal_alignment = 1
+
+[node name="MainMenuButton" type="Button" parent="HUD/DisconnectScreen/DisconnectVBox"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("5_s0nni")]
+transform = Transform3D(0.5143798, 0, -0.8575626, 0, 1, 0, 0.8575626, 0, 0.5143798, -10.283029, -14.748409, -18.061295)
+
+[node name="Fire" parent="." instance=ExtResource("6_aug50")]
+transform = Transform3D(0.41232538, 0, -0.9110366, 0, 1, 0, 0.9110366, 0, 0.41232538, 50.037422, -3.191144, -55.052525)

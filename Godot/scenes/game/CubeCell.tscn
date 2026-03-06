@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bss564p3sdij0"]
+
+[ext_resource type="Script" uid="uid://j4x20bmerqt8" path="res://scripts/game/CubeCell.cs" id="1_cellscript"]
+
+[node name="CubeCell" type="Area3D"]
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_cellscript")

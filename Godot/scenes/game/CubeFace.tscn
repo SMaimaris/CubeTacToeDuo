@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbmxdgarnhoal"]
+
+[ext_resource type="Script" uid="uid://sfqc2x0s3j2w" path="res://scripts/game/CubeFace.cs" id="1_facescript"]
+
+[node name="CubeFace" type="Node3D"]
+script = ExtResource("1_facescript")
