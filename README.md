@@ -1,4 +1,4 @@
-# CubeTacToe
+# CubeTacToe by Stylianos Maimaris & Panayiotis Yiannoukkos
 
 3D Tic-Tac-Toe played across the six faces of a cube. Built as a pair of prototypes for an employability portfolio university presentation for students in Game Development - one in **Godot 4 (C#)** with a medieval theme, one in **Unreal Engine** with a neon aesthetic. Same rules, two engines.
 
