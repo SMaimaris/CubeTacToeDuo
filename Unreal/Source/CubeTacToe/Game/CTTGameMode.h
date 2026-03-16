@@ -82,6 +82,12 @@ public:
 	UFUNCTION(BlueprintPure, Category = "State")
 	float GetTurnTimeRemaining() const;
 
+	// ---- Sounds ----
+
+	/** Sound played when the human player loses against the AI. */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Sounds")
+	TObjectPtr<USoundBase> HumanLoseVsAISound;
+
 	// ---- UI Widget Classes (set in BP_GameMode defaults) ----
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "UI|Classes")

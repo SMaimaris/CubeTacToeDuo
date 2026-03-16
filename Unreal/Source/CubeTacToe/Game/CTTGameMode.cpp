@@ -14,6 +14,7 @@
 #include "Actors/CTTOrbitCameraComponent.h"
 #include "Game/CTTPlayerController.h"
 #include "GameFramework/Pawn.h"
+#include "Components/AudioComponent.h"
 #include "CubeTacToe.h"
 
 ACTTGameMode::ACTTGameMode()
@@ -502,6 +503,17 @@ void ACTTGameMode::OnFaceWon_Implementation(EFaceIndex Face, ECellOwner Winner)
 
 void ACTTGameMode::OnGameOver_Implementation(ECellOwner Winner, bool bIsDraw)
 {
+	// Play the lose SFX when the human loses against the AI
+	if (!bIsDraw && GameMode == EGameMode::VsAI && Winner != HumanPlayer && HumanLoseVsAISound)
+	{
+		UCTTGameInstance* GI = Cast<UCTTGameInstance>(GetGameInstance());
+		UAudioComponent* AC = UGameplayStatics::SpawnSound2D(this, HumanLoseVsAISound);
+		if (AC && GI && GI->SFXSoundClass)
+		{
+			AC->SoundClassOverride = GI->SFXSoundClass;
+		}
+	}
+
 	ShowGameOverWidget(Winner, bIsDraw);
 }
 
